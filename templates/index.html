@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetPals Appointment System</title>
+<!--    <link rel="stylesheet" href="styles.css">-->
+    <link rel="stylesheet" href="../static/styles.css">
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</head>
+<body>
+    <h1>PetPals Appointment System</h1>
+    <div id="schedule-form">
+        <h2>Schedule Appointment</h2>
+        <input type="text" id="pet-owner" placeholder="Pet Owner's Name">
+        <input type="text" id="pet-name" placeholder="Pet's Name">
+        <input type="datetime-local" id="appointment-time">
+        <input type="text" id="address" placeholder="Address">
+        <select id="appointment-type">
+            <option value="Basic cleaning, brushing, and drying.">Bath and Brush</option>
+            <option value="Trimming or cutting your pet's fur according to the desired style.">Haircut</option>
+            <option value="Trimming your pet's nails to a safe and comfortable length">Nail Trimming</option>
+            <option value="Cleaning your pet's ears to remove wax and dirt.">Ear Cleaning</option>
+            <option value="Brushing your pet's teeth and providing dental care.">Teeth Cleaning</option>
+            <!-- Add more options as needed -->
+        </select>
+        <button onclick="scheduleAppointment()">Schedule</button>
+    </div>
+
+    <div id="cancel-form">
+        <h2>Cancel Appointment</h2>
+        <input type="text" id="appointment-id" placeholder="Appointment ID">
+        <button onclick="cancelAppointment()">Cancel</button>
+    </div>
+
+    <div id="display-schedule">
+        <h2>Appointment Schedule</h2>
+        <button onclick="displaySchedule()">Display Schedule</button>
+        <ul id="appointments"></ul>
+    </div>
+
+<!--    <script src="scripts.js"></script>-->
+<!--    <script src="{{ url_for('static', filename='scripts.js') }}"></script> -->
+
+</body>
+</html>
