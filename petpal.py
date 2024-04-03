@@ -1,13 +1,15 @@
 from flask import Flask, request, jsonify, render_template
 import mysql.connector
-from datetime import datetime
 
 app = Flask(__name__)
+
+
 # main class
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 class PetPals:
     def __init__(self):
@@ -32,19 +34,6 @@ class PetPals:
         self.connection.commit()
 
     def schedule_appointment(self, pet_owner, pet_name, appointment_time, address, appointment_type):
-        try:
-            appointment_time_dt = datetime.strptime(appointment_time, '%d-%m-%y %H:%M')
-        except ValueError:
-            return "Invalid appointment time format. Please use YYYY-MM-DD HH:MM."
-
-        # Get current time
-        current_time = datetime
-        current_time.date()
-
-
-        # Check if appointment time is in the past
-        if appointment_time < current_time:
-            return "Cannot schedule appointment for past dates."
 
         self.cursor.execute('''SELECT COUNT(*) FROM appointments WHERE appointment_time = %s''',
                             (appointment_time,))
@@ -55,7 +44,7 @@ class PetPals:
             # Insert the new appointment
             query = '''INSERT INTO appointments (pet_owner, pet_name, appointment_time, address, appointment_type)
                        VALUES (%s, %s, %s, %s,%s)'''
-            values = (pet_owner, pet_name, appointment_time,address, appointment_type)
+            values = (pet_owner, pet_name, appointment_time, address, appointment_type)
             self.cursor.execute(query, values)
             self.connection.commit()
             return "Appointment scheduled successfully!"
