@@ -3,7 +3,7 @@ import mysql.connector
 from datetime import datetime
 
 app = Flask(__name__)
-
+# main class
 
 @app.route('/')
 def index():
