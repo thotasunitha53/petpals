@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Flask, request, jsonify, render_template
 import mysql.connector
 
@@ -34,6 +35,20 @@ class PetPals:
         self.connection.commit()
 
     def schedule_appointment(self, pet_owner, pet_name, appointment_time, address, appointment_type):
+        current_time = datetime.now()
+        print(current_time)
+        print(appointment_time)
+
+        # Parse the first datetime string into a datetime object
+        #current_time = datetime.strptime(datetime.now(), '%Y-%m-%d %H:%M:%S.%f')
+
+        # Parse the second datetime string into a datetime object
+        appointment_time = datetime.strptime(appointment_time, '%Y-%m-%dT%H:%M')
+
+
+        # Check if appointment time is in the past
+        if appointment_time < current_time:
+            return "Cannot schedule appointment for past dates."
 
         self.cursor.execute('''SELECT COUNT(*) FROM appointments WHERE appointment_time = %s''',
                             (appointment_time,))
