@@ -39,5 +39,30 @@ def display_schedule():
     return jsonify({"appointments": appointments})
 
 
+# @app.route('/submit_form', methods=['POST'])
+# def submit_form():
+#     data = request.get_json()
+#     firstname = data['firstname']
+#     lastname = data['lastname']
+#     email = data['email']
+#     subject = data['subject']
+#     message = data['message']
+#
+#     response = pet_pals_services.submit_form(firstname, lastname, email, subject, message)
+#       return render_template('index.html', message=response)
+#
+
+@app.route('/submit_form', methods=['POST'])
+def submit_form():
+    firstname = request.form['firstname']
+    lastname = request.form['lastname']
+    email = request.form['email']
+    subject = request.form['subject']
+    message = request.form['message']
+    response = pet_pals_services.submit_form(firstname, lastname, email, subject, message)
+    return render_template('index.html', message=response)
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)

@@ -26,6 +26,7 @@
         </select>
         <button onclick="scheduleAppointment()">Schedule</button>
     </div>
+    <p>For more information about our services, <a href="./services.html">click here</a>.</p>
 
     <div id="cancel-form">
         <h2>Cancel Appointment</h2>
@@ -37,6 +38,30 @@
         <h2>Appointment Schedule</h2>
         <button onclick="displaySchedule()">Display Schedule</button>
         <ul id="appointments"></ul>
+    </div>
+    <div id="contact">
+        <h2>Contact Us</h2>
+        <form action="/submit_form" method="post" onsubmit="showMessage()">
+          <label for="fname">First Name:</label><br>
+          <input type="text" id="fname" name="firstname" required><br>
+
+          <label for="lname">Last Name:</label><br>
+          <input type="text" id="lname" name="lastname" required><br>
+
+          <label for="email">Email:</label><br>
+          <input type="email" id="email" name="email" required><br>
+
+          <label for="subject">Subject:</label><br>
+          <input type="text" id="subject" name="subject" required><br>
+
+          <label for="message">Message:</label><br>
+          <textarea id="message" name="message" required></textarea><br>
+
+          <input type="submit" value="Submit">
+        </form>
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
     </div>
 
 <!--    <script src="scripts.js"></script>-->
