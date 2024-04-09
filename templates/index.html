@@ -26,8 +26,7 @@
         </select>
         <button onclick="scheduleAppointment()">Schedule</button>
     </div>
-    <p>For more information about our services, <a href="./services.html">click here</a>.</p>
-
+    <p>For more information about our services, <a href="{{ url_for('show_services') }}">click here</a>.</p>
     <div id="cancel-form">
         <h2>Cancel Appointment</h2>
         <input type="text" id="appointment-id" placeholder="Appointment ID">
