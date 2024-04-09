@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetPals Appointment System</title>
+<!--    <link rel="stylesheet" href="styles.css">-->
+    <link rel="stylesheet" href="../static/styles.css">
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</head>
+<body>
+    <h1>PetPals Appointment System</h1>
+    <div id="contact">
+        <h2>Contact Us</h2>
+        <form action="/submit_form" method="post" onsubmit="showMessage()">
+          <label for="fname">First Name:</label><br>
+          <input type="text" id="fname" name="firstname" required><br>
+
+          <label for="lname">Last Name:</label><br>
+          <input type="text" id="lname" name="lastname" required><br>
+
+          <label for="email">Email:</label><br>
+          <input type="email" id="email" name="email" required><br>
+
+          <label for="subject">Subject:</label><br>
+          <input type="text" id="subject" name="subject" required><br>
+
+          <label for="message">Message:</label><br>
+          <textarea id="message" name="message" required></textarea><br>
+
+          <input type="submit" value="Submit">
+        </form>
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
+    </div>
+
+<!--    <script src="scripts.js"></script>-->
+<!--    <script src="{{ url_for('static', filename='scripts.js') }}"></script> -->
+
+</body>
+</html>
