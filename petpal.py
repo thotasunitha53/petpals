@@ -79,15 +79,20 @@ def contactus():
 
 @app.route('/schedule_appointment', methods=['POST'])
 def schedule_appointment():
-    data = request.get_json()
-    pet_owner = data['pet_owner']
-    pet_name = data['pet_name']
-    appointment_time = data['appointment_time']
-    address = data['address']
-    appointment_type = data['appointment_type']
-    response = pet_pals_services.schedule_appointment(pet_owner, pet_name, appointment_time, address,
-                                                      appointment_type)
-    return jsonify({"message": response})
+    if 'username' in session:
+        data = request.get_json()
+        pet_owner = data['pet_owner']
+        pet_name = data['pet_name']
+        appointment_time = data['appointment_time']
+        address = data['address']
+        appointment_type = data['appointment_type']
+        response = pet_pals_services.schedule_appointment(pet_owner, pet_name, appointment_time, address,
+                                                          appointment_type,session['username'])
+        return jsonify({"message": response})
+
+    else:
+        return jsonify({"error": "User not logged in"})
+
 
 
 @app.route('/cancel_appointment', methods=['POST'])

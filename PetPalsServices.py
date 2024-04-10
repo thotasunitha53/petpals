@@ -8,7 +8,8 @@ class PetPalsServices:
     def __init__(self):
         self.pet_pals_dao = PetPalsDAO()
 
-    def schedule_appointment(self, pet_owner, pet_name, appointment_time, address, appointment_type):
+    def schedule_appointment(self, pet_owner, pet_name, appointment_time, address,
+                                                          appointment_type,user_name):
 
         # Check if all input fields are provided
         if not all([pet_owner, pet_name, appointment_time, address, appointment_type]):
@@ -24,7 +25,7 @@ class PetPalsServices:
             return "Cannot schedule appointment for past dates."
 
         appointment_id = self.pet_pals_dao.schedule_appointment(pet_owner, pet_name, appointment_time, address,
-                                                                appointment_type)
+                                                                    appointment_type, user_name)
         return f"Appointment scheduled successfully! Appointment ID: {appointment_id}"
 
     def cancel_appointment(self, appointment_id):

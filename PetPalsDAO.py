@@ -10,12 +10,14 @@ class PetPalsDAO:
         self.connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="HARSHAsonu@6",
-            database="vet_appointment"
+            password="Mani@123",
+            database="employee_management_system"
         )
         self.cursor = self.connection.cursor()
         self.create_table()  # <-- create_table() method is called here
-        self.create_appointments_table()
+        self.create_form_table()
+        self.create_users_table()
+
 
     def create_table(self):
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS appointments (
@@ -24,11 +26,13 @@ class PetPalsDAO:
                                 pet_name VARCHAR(255),
                                 appointment_time DATETIME,
                                 address VARCHAR(255),
-                                appointment_type VARCHAR(255)
+                                appointment_type VARCHAR(255),
+                                user_id INT,
+                                FOREIGN KEY (user_id) REFERENCES users(id)
                             )''')
         self.connection.commit()
 
-    def create_appointments_table(self):
+    def create_form_table(self):
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS form (
                             id INT AUTO_INCREMENT PRIMARY KEY,
                             first_name VARCHAR(255) NOT NULL,
@@ -38,6 +42,16 @@ class PetPalsDAO:
                             message TEXT NOT NULL
                                )''')
         self.connection.commit()
+
+    def create_users_table(self):
+        self.cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+                                       id INT AUTO_INCREMENT PRIMARY KEY,
+                                       username VARCHAR(255) NOT NULL,
+                                       password VARCHAR(255) NOT NULL,
+                                       UNIQUE KEY username (username)
+                                   )''')
+        self.connection.commit()
+
 
     def signup(self, username, hashed_password):
         cursor = self.connection.cursor()
@@ -50,17 +64,18 @@ class PetPalsDAO:
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
         return cursor.fetchone()
 
-    def schedule_appointment(self, pet_owner, pet_name, appointment_time, address, appointment_type):
+    def schedule_appointment(self, pet_owner, pet_name, appointment_time, address, appointment_type ,user_name):
         self.cursor.execute('''SELECT COUNT(*) FROM appointments WHERE appointment_time = %s''',
                             (appointment_time,))
         count = self.cursor.fetchone()[0]
         if count > 0:
             return "Another appointment is already scheduled at this time. Please choose another time."
         else:
+
             # Insert the new appointment
-            query = '''INSERT INTO appointments (pet_owner, pet_name, appointment_time, address, appointment_type)
-                       VALUES (%s, %s, %s, %s,%s)'''
-            values = (pet_owner, pet_name, appointment_time, address, appointment_type)
+            query = '''INSERT INTO appointments (pet_owner, pet_name, appointment_time, address, appointment_type, user_id)
+            SELECT %s, %s, %s, %s, %s, id FROM users WHERE username = %s'''
+            values = (pet_owner, pet_name, appointment_time, address, appointment_type,user_name)
             self.cursor.execute(query, values)
             self.connection.commit()
             return self.cursor.lastrowid
@@ -72,8 +87,8 @@ class PetPalsDAO:
         self.connection.commit()
 
     def display_schedule(self , username) :
-        query = '''SELECT * FROM vet_appointment.appointments WHERE pet_owner = %s'''
-        print(username)
+        query = '''SELECT * FROM appointments WHERE user_id in
+         (select id FROM users WHERE username = %s)'''
         self.cursor.execute(query, (username,))
         # print(self.cursor.fetchall())
         return self.cursor.fetchall()
