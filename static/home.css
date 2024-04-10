@@ -1,0 +1,184 @@
+  /* Custom styles */
+  /* Header background color */
+  header {
+      background-color: #c6c935; /* Light gray */
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+
+    /* Footer background color and text color */
+    /* Footer styling */
+    #main-logo, #footer-logo{
+      width: 14%;
+    }
+    main{
+      padding-top: 0%;
+      padding-bottom: 3%;
+      }
+
+      /* Card background colors */
+      #card {
+        background-color: #c6c935; /* Light red */
+      }
+
+      #main-image h1 {
+        padding: 7%;
+        color: #c6c935;
+      }
+
+      #main-image {
+        background: linear-gradient(6deg, rgba(163, 146, 146, 0.5) 0%, rgba(142, 141, 134, 0.6) 50%), url('../static/images/home_image.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0%;
+        padding: 10%;
+        position: relative;
+        text-shadow: 2px 2px rgb(0, 0, 0);
+      }
+  footer{
+    font-size : 12px;
+    background-color:  #c6c935;
+  }
+  .footer-icons a {
+    color: #ffffff; /* White */
+    font-size: 24px;
+    margin-right: 15px;
+  }
+  
+  .footer-icons a:hover {
+    color: #007bff; /* Blue */
+  }
+  
+  .footer-company-about {
+    font-size: 14px;
+  }
+  
+  .footer-company-about br {
+    display: none;
+  }
+  
+  @media (min-width: 992px) {
+    .footer-company-about br {
+      display: inline;
+    }
+  }
+  
+  
+  /* Navbar link color */
+  .navbar-nav .nav-link {
+    color: #343a40; /* Dark gray */
+  }
+
+  /* Navbar link hover color */
+  .navbar-nav .nav-link:hover {
+    color: #007bff; /* Blue */
+  }
+
+  /* Footer link hover color */
+  .footer-nav li a:hover {
+    color: #007bff; /* Blue */
+  }
+/*Appointment*/
+#schedule-main{
+background: url('../static/images/petgrooming.jpg');
+background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+}
+#schedule-content{
+padding-top:3%;
+}
+  /*Appointment*/
+  #schedule-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#schedule-form h2 {
+  text-align: center;
+}
+
+#schedule-form input[type="text"],
+#schedule-form input[type="datetime-local"],
+#schedule-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#schedule-form input[type="text"]:focus,
+#schedule-form input[type="datetime-local"]:focus,
+#schedule-form select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+#schedule-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#schedule-form button:hover {
+  background-color: #0056b3;
+}
+
+/*services*/
+#services {
+  padding: 20px;
+  background-color: #f7f7f7; /* Light gray background */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Add transition */
+}
+
+#services div {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #fff; /* White background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  transition: background-color 0.3s, box-shadow 0.3s; /* Add transition */
+}
+
+#services div:hover {
+  background-color: #f0f0f0; /* Light gray background on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+}
+
+#services h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 48px; /* Increase font size for emphasis */
+  font-family: 'Comic Sans MS', cursive, sans-serif; /* Playful font */
+  color: #ff6f61; /* Coral color */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+  text-transform: uppercase; /* Uppercase text */
+  transition: color 0.3s, text-shadow 0.3s; /* Add transition */
+}
+
+#services h2:hover {
+  color: #ff4636; /* Darker coral color on hover */
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Larger shadow on hover */
+}
+
+#services h3 {
+  font-size: 28px; /* Increase font size */
+  margin-bottom: 20px;
+  color: #5a5a5a; /* Dark gray color */
+}
+
+#services h3:hover {
+  color: #333; /* Darker gray color on hover */
+}

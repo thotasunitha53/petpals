@@ -18,7 +18,7 @@ class PetPalsDAO:
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS appointments (
                                 id INT AUTO_INCREMENT PRIMARY KEY,
                                 pet_owner VARCHAR(255),
-                                pet_name VARCHAR(255),
+                                pet_name VARCHAR(255),  
                                 appointment_time DATETIME,
                                 address VARCHAR(255),
                                 appointment_type VARCHAR(255)
