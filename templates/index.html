@@ -10,49 +10,217 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
-  </head>
+    <style>
 
-  <body>
+
+#schedule-content {
+    text-align: center;
+    padding-top: 50px; /* Add padding on top */
+
+}
+
+
+
+/* Add styling for buttons */
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#schedule-box,#cancel-box,#view-box{
+padding-top:3%;
+margin:0 30% 0;
+
+}
+/* Add styling for input fields */
+input[type=text],
+input[type=datetime-local],
+select {
+    width: calc(100% - 24px); /* Adjust width with padding and border */
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+/* Add styling for form labels */
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+/* Add styling for form submit buttons */
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+        #appointments{
+        list-style-type: none; /* Removes default bullet points */
+    padding: 0; /* Removes default padding */
+        }
+
+ #appointments li {
+    padding: 10px; /* Padding around each list item */
+    margin-bottom: 5px; /* Spacing between list items */
+    border-radius: 5px; /* Rounded corners */
+  }
+
+  /* Custom colors for each list item */
+ #appointments li:nth-child(odd) {
+    background-color: #f0ad4e; /* Background color for odd-indexed list items */
+    color: #fff; /* Text color for odd-indexed list items */
+  }
+
+  #appointments li:nth-child(even) {
+    background-color: #5bc0de; /* Background color for even-indexed list items */
+    color: #fff; /* Text color for even-indexed list items */
+  }
+
+ </style>
+    <script>
+ function toggleBox(boxId) {
+    // Hide all boxes
+    hideAllBoxes();
+
+    // Show the selected box
+    var box = document.getElementById(boxId + "-box");
+    if (box) {
+        box.style.display = "block";
+        box.style.left = "50%"; /* Center the box horizontally */
+        box.style.transform = "translateX(-50%)"; /* Adjust position */
+    }
+}
+
+function hideAllBoxes() {
+    var boxes = document.querySelectorAll(".box");
+    boxes.forEach(function(box) {
+        box.style.display = "none";
+    });
+}
+
+        function searchAppointment() {
+    var searchId = document.getElementById('search-id').value;
+    // Perform search operation and display results
+    // For example:
+    var appointments = getAllAppointments(); // Implement this function to get all appointments
+    var foundAppointment = appointments.find(appointment => appointment.id === searchId);
+    if (foundAppointment) {
+        displayAppointment(foundAppointment);
+    } else {
+        alert("Appointment not found!");
+    }
+}
+
+function displayAppointment(appointment) {
+    var appointmentsList = document.getElementById('appointments-list');
+    appointmentsList.innerHTML = `
+        <div>
+            <p>ID: ${appointment.id}</p>
+            <p>Pet Owner's Name: ${appointment.petOwner}</p>
+            <p>Pet's Name: ${appointment.petName}</p>
+            <p>Appointment Time: ${appointment.appointmentTime}</p>
+            <p>Address: ${appointment.address}</p>
+            <p>Appointment Type: ${appointment.appointmentType}</p>
+            <button onclick="deleteAppointment('${appointment.id}')">Delete</button>
+        </div>
+    `;
+}
+
+function deleteAppointment(id) {
+    // Implement delete functionality here
+    // For example:
+    var confirmed = confirm("Are you sure you want to delete this appointment?");
+    if (confirmed) {
+        // Delete appointment with the given ID
+        // Update UI accordingly
+    }
+}
+
+
+    </script>
+</head>
+
+<body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-          <a class="navbar-brand" href="#">
-            <img src="../static/images/logo.png" id="main-logo" alt="main logo" />
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#main-navbar"
-            aria-controls="main-navbar"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="main-navbar">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="./home.html">Home</a>
-              </li>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="../static/images/logo.png" id="main-logo" alt="main logo" />
+                </a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#main-navbar"
+                    aria-controls="main-navbar"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="main-navbar">
+                     <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="./index.html">Appointment</a>
+                <a class="nav-link" href="{{ url_for('home') }}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./services.html">Services</a>
+                <a class="nav-link" href="{{ url_for('index') }}">Appointment</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./admin.html">Admin</a>
+                <a class="nav-link" href="{{ url_for('services') }}">Services</a>
+              </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('contactus') }}">Contact us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>
               </li>
             </ul>
-          </div>
-        </div>
-      </nav>
+                </div>
+            </div>
+        </nav>
     </header>
 
     <main id="schedule-main">
+        <h1>Welcome, {{ username }}!</h1>
         <div id="schedule-content">
-        <div id="schedule-form">
+            <div id="accordion">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Schedule Appointment
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <div id="schedule-form" class="box hidden">
         <h2>Schedule Appointment</h2>
         <input type="text" id="pet-owner" placeholder="Pet Owner's Name"  required>
         <input type="text" id="pet-name" placeholder="Pet's Name" required >
@@ -67,54 +235,90 @@
             <!-- Add more options as needed -->
         </select>
         <button onclick="scheduleAppointment()">Schedule</button>
-            <p>For more information about our services, <a href="./services.html">click here</a>.</p>
-            </div>
+    </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          View Appointments
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <div id="view-box" class="box hidden">
+    <!-- Content for viewing all appointments -->
+            <div id="cancel-form">
+        <h2>Cancel Appointment</h2>
+        <input type="text" id="appointment-id" placeholder="Appointment ID">
+        <button onclick="cancelAppointment()">Cancel</button>
+    </div>
+    <div id="display-schedule">
+        <h2>Appointment Schedule</h2>
+        <button onclick="displaySchedule()">Display Schedule</button>
+        <ul id="appointments" class="list-group list-group-flush"></ul>
+    </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p><a href="{{ url_for('logout') }}">Logout</a></p>
+
+
+
+
         </div>
     </main>
 
     <footer class="text-dark p-2">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <img src="../static/images/logo.png" id="footer-logo" alt="footer logo" />
-            <p class="mt-3">Petpals &#169; 2023</p>
-          </div>
-          <div class="col-md-4">
-            <h5 class="mb-4">Explore more about Petpals here</h5>
-            <ul class="list-unstyled">
-              <li><a href="./home.html" class="text-dark">Home</a></li>
-              <li><a href="./index.html" class="text-dark">Appointment</a></li>
-              <li>
-                <a href="./services.html" class="text-dark">Services</a>
-              </li>
-              <li><a href="./admin.html" class="text-dark">Admin</a></li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <h5 class="mb-4">Why Petpals?</h5>
-            <p class="footer-company-about">
-              Love pets. Pets love us. we support pet lovers
-            </p>
-            <div class="footer-icons">
-              <a href="#" class="text-dark"
-                ><i class="fab fa-facebook-f"></i
-              ></a>
-              <a href="#" class="text-dark"
-                ><i class="fab fa-instagram"></i
-              ></a>
-              <a href="#" class="text-dark"><i class="fab fa-twitter"></i></a>
-              <a href="#" class="text-dark"
-                ><i class="fab fa-linkedin-in"></i
-              ></a>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="../static/images/logo.png" id="footer-logo" alt="footer logo" />
+                    <p class="mt-3">Petpals &#169; 2023</p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-4">Explore more about Petpals here</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="./home.html" class="text-dark">Home</a></li>
+                        <li><a href="./index.html" class="text-dark">Appointment</a></li>
+                        <li>
+                            <a href="./services.html" class="text-dark">Services</a>
+                        </li>
+                        <li><a href="./admin.html" class="text-dark">Admin</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-4">Why Petpals?</h5>
+                    <p class="footer-company-about">
+                        Love pets. Pets love us. we support pet lovers
+                    </p>
+                    <div class="footer-icons">
+                        <a href="#" class="text-dark"
+                            ><i class="fab fa-facebook-f"></i
+                        ></a>
+                        <a href="#" class="text-dark"
+                            ><i class="fab fa-instagram"></i
+                        ></a>
+                        <a href="#" class="text-dark"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-dark"
+                            ><i class="fab fa-linkedin-in"></i
+                        ></a>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </footer>
 
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  </body>
+</body>
 </html>

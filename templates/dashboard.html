@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+</head>
+<body>
+    <h1>Welcome, {{ username }}!</h1>
+    <h1>PetPals Appointment System</h1>
+    <div id="schedule-form">
+        <h2>Schedule Appointment</h2>
+        <input type="text" id="pet-owner" placeholder="Pet Owner's Name"  required>
+        <input type="text" id="pet-name" placeholder="Pet's Name" required >
+        <input type="datetime-local" id="appointment-time" required>
+        <input type="text" id="address" placeholder="Address" required>
+        <select id="appointment-type" required>
+            <option value="Basic cleaning, brushing, and drying.">Bath and Brush</option>
+            <option value="Trimming or cutting your pet's fur according to the desired style.">Haircut</option>
+            <option value="Trimming your pet's nails to a safe and comfortable length">Nail Trimming</option>
+            <option value="Cleaning your pet's ears to remove wax and dirt.">Ear Cleaning</option>
+            <option value="Brushing your pet's teeth and providing dental care.">Teeth Cleaning</option>
+            <!-- Add more options as needed -->
+        </select>
+        <button onclick="scheduleAppointment()">Schedule</button>
+    </div>
+    <p>For more information about our services, <a href="{{ url_for('show_services') }}">click here</a>.</p>
+    <div id="cancel-form">
+        <h2>Cancel Appointment</h2>
+        <input type="text" id="appointment-id" placeholder="Appointment ID">
+        <button onclick="cancelAppointment()">Cancel</button>
+    </div>
+
+    <div id="display-schedule">
+        <h2>Appointment Schedule</h2>
+        <button onclick="displaySchedule()">Display Schedule</button>
+        <ul id="appointments"></ul>
+    </div>
+    <div id="contact">
+        <h2>Contact Us</h2>
+        <form action="/submit_form" method="post" onsubmit="showMessage()">
+          <label for="fname">First Name:</label><br>
+          <input type="text" id="fname" name="firstname" required><br>
+
+          <label for="lname">Last Name:</label><br>
+          <input type="text" id="lname" name="lastname" required><br>
+
+          <label for="email">Email:</label><br>
+          <input type="email" id="email" name="email" required><br>
+
+          <label for="subject">Subject:</label><br>
+          <input type="text" id="subject" name="subject" required><br>
+
+          <label for="message">Message:</label><br>
+          <textarea id="message" name="message" required></textarea><br>
+
+          <input type="submit" value="Submit">
+        </form>
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
+    </div>
+
+<!--    <script src="scripts.js"></script>-->
+<!--    <script src="{{ url_for('static', filename='scripts.js') }}"></script> -->
+
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    <!-- Your dashboard content here -->
+</body>
+</html>

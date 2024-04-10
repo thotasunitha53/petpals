@@ -82,6 +82,7 @@
 /*Appointment*/
 #schedule-main{
 background: url('../static/images/petgrooming.jpg');
+min-height:1100px;
 background-position: center;
         background-repeat: no-repeat;
         background-size: cover;

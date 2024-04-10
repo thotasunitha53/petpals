@@ -1,5 +1,8 @@
 from datetime import datetime
 import mysql.connector
+from flask import render_template, redirect, url_for, session
+
+from werkzeug.security import check_password_hash
 
 
 class PetPalsDAO:
@@ -7,8 +10,8 @@ class PetPalsDAO:
         self.connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="Mani@123",
-            database="employee_management_system"
+            password="HARSHAsonu@6",
+            database="vet_appointment"
         )
         self.cursor = self.connection.cursor()
         self.create_table()  # <-- create_table() method is called here
@@ -18,7 +21,7 @@ class PetPalsDAO:
         self.cursor.execute('''CREATE TABLE IF NOT EXISTS appointments (
                                 id INT AUTO_INCREMENT PRIMARY KEY,
                                 pet_owner VARCHAR(255),
-                                pet_name VARCHAR(255),  
+                                pet_name VARCHAR(255),
                                 appointment_time DATETIME,
                                 address VARCHAR(255),
                                 appointment_type VARCHAR(255)
@@ -35,6 +38,17 @@ class PetPalsDAO:
                             message TEXT NOT NULL
                                )''')
         self.connection.commit()
+
+    def signup(self, username, hashed_password):
+        cursor = self.connection.cursor()
+        cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, hashed_password))
+        self.connection.commit()
+
+    def login(self, username):
+
+        cursor = self.connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+        return cursor.fetchone()
 
     def schedule_appointment(self, pet_owner, pet_name, appointment_time, address, appointment_type):
         self.cursor.execute('''SELECT COUNT(*) FROM appointments WHERE appointment_time = %s''',
@@ -57,9 +71,11 @@ class PetPalsDAO:
         self.cursor.execute(query, values)
         self.connection.commit()
 
-    def display_schedule(self):
-        self.cursor.execute('''SELECT * FROM appointments''')
-
+    def display_schedule(self , username) :
+        query = '''SELECT * FROM vet_appointment.appointments WHERE pet_owner = %s'''
+        print(username)
+        self.cursor.execute(query, (username,))
+        # print(self.cursor.fetchall())
         return self.cursor.fetchall()
 
     def submit_form(self, firstname, lastname, email, subject, message):

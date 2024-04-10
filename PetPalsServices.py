@@ -31,8 +31,8 @@ class PetPalsServices:
         self.pet_pals_dao.cancel_appointment(appointment_id)
         return "Appointment cancelled successfully!"
 
-    def display_schedule(self):
-        appointments = self.pet_pals_dao.display_schedule()
+    def display_schedule(self, username):
+        appointments = self.pet_pals_dao.display_schedule(username)
         return appointments
 
     def submit_form(self, firstname, lastname, email, subject, message):
