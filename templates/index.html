@@ -243,11 +243,12 @@ function deleteAppointment(id) {
         <input type="datetime-local" id="appointment-time" required>
         <input type="text" id="address" placeholder="Address" required>
         <select id="appointment-type" required>
-            <option value="Basic cleaning, brushing, and drying.">Bath and Brush</option>
-            <option value="Trimming or cutting your pet's fur according to the desired style.">Haircut</option>
-            <option value="Trimming your pet's nails to a safe and comfortable length">Nail Trimming</option>
+            <option value="Basic cleaning, brushing, and drying.">Shampooing and Bath Soak</option>
+            <option value="Trimming or cutting your pet's fur according to the desired style.">Blow Out and Fluff Dry</option>
+            <option value="Use an undercoat rake or shedding tool to remove loose fur">Undercoat Brush Out and Finishing</option>
+            <option value="Trimming your pet's nails to a safe and comfortable length">Clipping and Filing the Nail's</option>
             <option value="Cleaning your pet's ears to remove wax and dirt.">Ear Cleaning</option>
-            <option value="Brushing your pet's teeth and providing dental care.">Teeth Cleaning</option>
+            
             <!-- Add more options as needed -->
         </select>
         <button onclick="scheduleAppointment()">Schedule</button>
