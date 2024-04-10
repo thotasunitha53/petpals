@@ -192,13 +192,24 @@ function deleteAppointment(id) {
               </li>
              <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('contactus') }}">Contact us</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>
-              </li>
+              {% if username %}
+                <li><a class="nav-link" href="/logout">Logout</a></li>
+
+            {% else %}
+                <li><a class="nav-link" href="/login">Login</a></li>
+                         <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>
+             </li>
+            {% endif %}
+<!--              <li class="nav-item">-->
+<!--                <a id="login-link" class="nav-link" href="{{ url_for('login') }}">Login</a>-->
+<!--              </li>-->
+<!--                         <li class="nav-item">-->
+<!--                <a id="logout-link" class="nav-link" href="{{ url_for('logout') }}">logout</a>-->
+<!--              </li>-->
+<!--              <li class="nav-item">-->
+<!--                <a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>-->
+<!--              </li>-->
             </ul>
                 </div>
             </div>
@@ -206,7 +217,12 @@ function deleteAppointment(id) {
     </header>
 
     <main id="schedule-main">
-        <h1>Welcome, {{ username }}!</h1>
+        {% if username %}
+                <h1>Welcome, {{ username }}!</h1>
+
+            {% else %}
+        <h1>Welcome, Guest!</h1>
+{% endif %}
         <div id="schedule-content">
             <div id="accordion">
   <div class="card">
@@ -268,7 +284,6 @@ function deleteAppointment(id) {
     </div>
   </div>
 </div>
-<p><a href="{{ url_for('logout') }}">Logout</a></p>
 
 
 

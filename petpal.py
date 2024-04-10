@@ -15,38 +15,13 @@ pet_pals_dao = PetPalsDAO()
 
 @app.route('/')
 def home():
-    return render_template('home.html', message=None)
+    username = session.get('username')
+    return render_template('home.html', username=username)
 
 @app.route('/index')
 def index():
-    return render_template('index.html', message=None)
-
-@app.route('/services')
-def services():
-    return render_template('services.html', message=None)
-
-@app.route('/admin')
-def admin():
-    return render_template('admin.html', message=None)
-
-@app.route('/show_services')
-def show_services():
-    return render_template('services.html')
-
-@app.route('/contactus')
-def contactus():
-    return render_template('contactus.html', message=None)
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        hashed_password = generate_password_hash(password)
-        pet_pals_dao.signup(username, hashed_password)
-
-        return redirect(url_for('login'))
-    return render_template('signup.html')
-
+    username = session.get('username')
+    return render_template('index.html', username=username)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -58,24 +33,48 @@ def login():
 
         if user and check_password_hash(user['password'], password):
             session['username'] = username  # Store username in session
-            return redirect(url_for('index'))
+            return redirect(url_for('index'))  # Redirect to index after successful login
         else:
             return render_template('login.html', error='Invalid username or password')
     return render_template('login.html')
 
-
 @app.route('/logout')
 def logout():
     session.pop('username', None)  # Remove username from session
-    return redirect(url_for('index'))
+    return redirect(url_for('index'))  # Redirect to index after logout
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = generate_password_hash(password)
+        pet_pals_dao.signup(username, hashed_password)
 
-@app.route('/dashboard')
-def dashboard():
-    if 'username' in session:
-        return render_template('dashboard.html', username=session['username'])
-    else:
         return redirect(url_for('login'))
+    return render_template('signup.html')
+
+@app.route('/services')
+def services():
+    username = session.get('username')
+    return render_template('services.html', username=username)
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html', message=None)
+
+@app.route('/show_services')
+def show_services():
+    username = session.get('username')
+    return render_template('services.html', username=username)
+
+@app.route('/contactus')
+def contactus():
+    username = session.get('username')
+    return render_template('contactus.html', username=username)
+
+
+
 
 
 @app.route('/schedule_appointment', methods=['POST'])

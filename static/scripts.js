@@ -56,7 +56,22 @@ function displaySchedule() {
     .catch(error => console.error('Error:', error));
 }
 
+function displayLoginLogout() {
+    const loginLink = document.getElementById('login-link');
+    const logoutLink = document.getElementById('logout-link');
 
+    if (sessionStorage.getItem('username')) {
+        // User is logged in
+        loginLink.style.display = 'none';
+        logoutLink.style.display = 'inline'; // Adjust style to display as inline element
+    } else {
+        // User is not logged in
+        loginLink.style.display = 'inline'; // Adjust style to display as inline element
+        logoutLink.style.display = 'none';
+    }
+}
 
-
-
+function logout() {
+    sessionStorage.removeItem('username');
+    displayLoginLogout();
+}
