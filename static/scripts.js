@@ -19,8 +19,10 @@ function scheduleAppointment() {
         })
     })
     .then(response => response.json())
-    .then(data => alert(data.message))
+    .then(data => alert(data.message|| data.error))
     .catch(error => console.error('Error:', error));
+
+
 
 }
 function cancelAppointment() {
@@ -40,20 +42,43 @@ function cancelAppointment() {
     .catch(error => console.error('Error:', error));
 }
 
+
+
 function displaySchedule() {
     fetch('/display_schedule')
-    .then(response => response.json())
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    })
     .then(data => {
         const appointmentsList = document.getElementById('appointments');
         appointmentsList.innerHTML = '';
 
-        data.appointments.forEach(appointment => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `ID: ${appointment[0]}, Pet Owner: ${appointment[1]}, Pet Name: ${appointment[2]}, Time: ${appointment[3]} , Address : ${appointment[4]} , Service : ${appointment[5]}`;
-            appointmentsList.appendChild(listItem);
-        });
+        if (data.hasOwnProperty('appointments')) {
+            data.appointments.forEach(appointment => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `ID: ${appointment[0]}, Pet Owner: ${appointment[1]}, Pet Name: ${appointment[2]}, Time: ${appointment[3]} , Address : ${appointment[4]} , Service : ${appointment[5]}`;
+                appointmentsList.appendChild(listItem);
+            });
+        } else if (data.hasOwnProperty('message')) {
+            const messageItem = document.createElement('li');
+            messageItem.textContent = data.message;
+            appointmentsList.appendChild(messageItem);
+        } else if (data.hasOwnProperty('error')) {
+            const errorItem = document.createElement('li');
+            errorItem.textContent = `Error: ${data.error}`;
+            appointmentsList.appendChild(errorItem);
+        }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        const errorMessage = document.createElement('li');
+        errorMessage.textContent = 'An error occurred while fetching the schedule.';
+        document.getElementById('appointments').appendChild(errorMessage);
+    });
 }
 
 function displayLoginLogout() {

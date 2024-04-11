@@ -218,7 +218,7 @@ function deleteAppointment(id) {
 
     <main id="schedule-main">
         {% if username %}
-                <h1>Welcome, {{ username }}!</h1>
+                <h1>Welcome, {{ username.split('@')[0]}}!</h1>
 
             {% else %}
         <h1>Welcome, Guest!</h1>

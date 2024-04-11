@@ -86,6 +86,7 @@ def schedule_appointment():
         appointment_time = data['appointment_time']
         address = data['address']
         appointment_type = data['appointment_type']
+
         response = pet_pals_services.schedule_appointment(pet_owner, pet_name, appointment_time, address,
                                                           appointment_type,session['username'])
         return jsonify({"message": response})
@@ -107,10 +108,14 @@ def cancel_appointment():
 def display_schedule():
     if 'username' in session:
         appointments = pet_pals_services.display_schedule(session['username'])
-        print(appointments)
-        return jsonify({"appointments": appointments})
+
+        if isinstance(appointments, list) and not appointments:  # Check if lst is an empty list
+            return jsonify({"message": "Currently, no appointments scheduled!"})
+        else:
+            return jsonify({"appointments": appointments})
     else:
         return jsonify({"error": "User not logged in"})
+
 
 
 @app.route('/submit_form', methods=['POST'])
