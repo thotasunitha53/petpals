@@ -26,7 +26,12 @@ class PetPalsServices:
 
         appointment_id = self.pet_pals_dao.schedule_appointment(pet_owner, pet_name, appointment_time, address,
                                                                     appointment_type, user_name)
-        return f"Appointment scheduled successfully! Appointment ID: {appointment_id}"
+
+        if isinstance(appointment_id, str):
+            return appointment_id
+        elif isinstance(appointment_id, int):
+            return f"Appointment scheduled successfully! Appointment ID: {appointment_id}"
+
 
     def cancel_appointment(self, appointment_id):
         self.pet_pals_dao.cancel_appointment(appointment_id)
