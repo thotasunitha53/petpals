@@ -20,6 +20,7 @@ function scheduleAppointment() {
     })
     .then(response => response.json())
     .then(data => alert(data.message|| data.error))
+    .then(data => location.reload())
     .catch(error => console.error('Error:', error));
 
 
@@ -39,6 +40,7 @@ function cancelAppointment() {
     })
     .then(response => response.json())
     .then(data => alert(data.message))
+    .then(data => location.reload())
     .catch(error => console.error('Error:', error));
 }
 
