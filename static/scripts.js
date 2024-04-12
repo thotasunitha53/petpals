@@ -100,3 +100,8 @@ function logout() {
     sessionStorage.removeItem('username');
     displayLoginLogout();
 }
+
+
+function showMessage() {
+    alert("Form submitted successfully!");
+}

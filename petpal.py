@@ -126,7 +126,7 @@ def submit_form():
     subject = request.form['subject']
     message = request.form['message']
     response = pet_pals_services.submit_form(firstname, lastname, email, subject, message)
-    return render_template('index.html', message=response)
+    return render_template('home.html')
 
 
 if __name__ == '__main__':

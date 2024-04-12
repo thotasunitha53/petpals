@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: Mani@123
+      MYSQL_DATABASE: employee_management_system
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

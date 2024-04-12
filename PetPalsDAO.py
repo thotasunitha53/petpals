@@ -14,9 +14,9 @@ class PetPalsDAO:
             database="employee_management_system"
         )
         self.cursor = self.connection.cursor()
+        self.create_users_table()
         self.create_table()  # <-- create_table() method is called here
         self.create_form_table()
-        self.create_users_table()
 
 
     def create_table(self):
