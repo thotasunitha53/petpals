@@ -10,8 +10,8 @@ class PetPalsDAO:
         self.connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="Mani@123",
-            database="employee_management_system"
+            password="HARSHAsonu@6",
+            database="vet_appointment"
         )
         self.cursor = self.connection.cursor()
         self.create_users_table()
